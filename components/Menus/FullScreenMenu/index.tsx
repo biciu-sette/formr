@@ -45,23 +45,35 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
   }, [showMenu]);
 
   useEffect(() => {
+    let timerId;
+
     if (isOpenMenu) {
-      setTimeout(() => {
+      timerId = setTimeout(() => {
         setShowSocial(true);
-      }, 1000);
+      }, 500);
     } else {
       setShowSocial(false);
     }
+
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [isOpenMenu]);
 
   useEffect(() => {
+    let timerId;
+
     if (showSocial) {
-      setTimeout(() => {
+      timerId = setTimeout(() => {
         setShowSingleSocial(true);
-      }, 1200);
+      }, 200);
     } else {
       setShowSingleSocial(false);
     }
+
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [showSocial]);
 
   const fullVariants = {
@@ -69,12 +81,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
     visible: {
       y: "0px",
       opacity: 1,
-      transition: {
-        // delay: 1,
-        // when: "beforeChildren",
-        // delayChildren: 0.8,
-        // staggerChildren: 0.6,
-      },
     },
   };
   const socialVariants = {
@@ -95,11 +101,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
     visible: {
       y: "0px",
       opacity: 1,
-      transition: {
-        // delay: 0.1,
-        // staggerChildren: 0.1,
-      },
-      // opacity: 1,
     },
   };
 
@@ -198,7 +199,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
                 style={{
                   color: "white",
                   cursor: "pointer",
-                  transition: "color 0.6s ease-out;",
                 }}
                 className="list-group-item border-0 bg-transparent "
               >
@@ -212,7 +212,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
                 style={{
                   color: "white",
                   cursor: "pointer",
-                  transition: "color 0.6s ease-out;",
                 }}
                 className="list-group-item border-0 bg-transparent "
               >
@@ -225,7 +224,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
                 style={{
                   color: "white",
                   cursor: "pointer",
-                  transition: "color 0.6s ease-out;",
                 }}
                 className="list-group-item border-0 bg-transparent "
               >
@@ -238,7 +236,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
                 style={{
                   color: "white",
                   cursor: "pointer",
-                  transition: "color 0.6s ease-out;",
                 }}
                 className="list-group-item border-0 bg-transparent "
               >
@@ -251,7 +248,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
                 style={{
                   color: "white",
                   cursor: "pointer",
-                  transition: "color 0.6s ease-out;",
                 }}
                 className="list-group-item border-0 bg-transparent "
               >
@@ -264,7 +260,6 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
                 style={{
                   color: "white",
                   cursor: "pointer",
-                  transition: "color 0.6s ease-out;",
                 }}
                 className="list-group-item border-0 bg-transparent "
               >
