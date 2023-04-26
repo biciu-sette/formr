@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { useTrail, a } from "@react-spring/web";
 import FadeIn from "../../SpringAnimate/FadeIn";
 import HoverTextAnimation from "../../SpringAnimate/HoverTextAnimation";
+import { motion } from "framer-motion";
 
 const TrailMenuItems: React.FC<{ open: boolean }> = ({ open, children }) => {
   const items = React.Children.toArray(children);
@@ -32,6 +33,8 @@ type FullScreenMenuProps = {
 
 const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
+  const [showSocial, setShowSocial] = useState(false);
+  const [showSingleSocial, setShowSingleSocial] = useState(false);
 
   useEffect(() => {
     if (showMenu) {
@@ -40,6 +43,65 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
       setIsOpenMenu(false);
     }
   }, [showMenu]);
+
+  useEffect(() => {
+    if (isOpenMenu) {
+      setTimeout(() => {
+        setShowSocial(true);
+      }, 1000);
+    } else {
+      setShowSocial(false);
+    }
+  }, [isOpenMenu]);
+
+  useEffect(() => {
+    if (showSocial) {
+      setTimeout(() => {
+        setShowSingleSocial(true);
+      }, 1200);
+    } else {
+      setShowSingleSocial(false);
+    }
+  }, [showSocial]);
+
+  const fullVariants = {
+    hidden: { y: "100vh", opacity: 0 },
+    visible: {
+      y: "0px",
+      opacity: 1,
+      transition: {
+        // delay: 1,
+        // when: "beforeChildren",
+        // delayChildren: 0.8,
+        // staggerChildren: 0.6,
+      },
+    },
+  };
+  const socialVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        // delay: 1,
+        delayChildren: 0,
+        staggerChildren: 0.1,
+        // when: "beforeChildren",
+      },
+    },
+  };
+
+  const socialVariant = {
+    hidden: { y: "100%", opacity: 0 },
+    visible: {
+      y: "0px",
+      opacity: 1,
+      transition: {
+        // delay: 0.1,
+        // staggerChildren: 0.1,
+      },
+      // opacity: 1,
+    },
+  };
 
   return (
     <div className={`overlay ${showMenu ? "menu-active" : "menu-inactive"}`}>
@@ -69,11 +131,15 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
           </a>
         </div>
       </div>
-      <div
+      <motion.div
+        variants={fullVariants}
+        initial="hidden"
+        animate={isOpenMenu ? "visible" : "hidden"}
         className={`overlay-content`}
-        style={{
-          display: showMenu ? "block" : "none",
-        }}
+        transition={{ duration: 0.5 }}
+        // style={{
+        //   display: showMenu ? "block" : "none",
+        // }}
       >
         <TrailMenuItems open={isOpenMenu}>
           <Link
@@ -110,33 +176,104 @@ const FullScreenMenu = ({ showMenu, toggleMenu }: FullScreenMenuProps) => {
         </TrailMenuItems>
 
         {/* Social  */}
-        <div className="row mt-5">
+        <div
+          className="row mt-5"
+
+          // transition={{ duration: 0.1 }}
+        >
           <div className="col-12 d-flex justify-content-center">
-            <ul className="list-group list-group-horizontal-lg border-0">
-              <FadeIn>
-                <li className="list-group-item border-0 bg-transparent text-white">
-                  facebook
-                </li>
-              </FadeIn>
-              <li className="list-group-item border-0 bg-transparent text-white">
+            <motion.ul
+              variants={socialVariants}
+              initial="hidden"
+              animate={showSocial ? "visible" : "hidden"}
+              className="list-group list-group-horizontal-lg border-0"
+              // style={{
+              //   display: isOpenMenu ? "flex" : "none",
+              // }}
+            >
+              <motion.li
+                variants={socialVariant}
+                // initial="hidden"
+                // animate={showSocial ? "visible" : "hidden"}
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "color 0.6s ease-out;",
+                }}
+                className="list-group-item border-0 bg-transparent "
+              >
+                facebook
+              </motion.li>
+
+              <motion.li
+                variants={socialVariant}
+                // initial="hidden"
+                // animate={showSocial ? "visible" : "hidden"}
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "color 0.6s ease-out;",
+                }}
+                className="list-group-item border-0 bg-transparent "
+              >
                 instagram
-              </li>
-              <li className="list-group-item border-0 bg-transparent text-white">
+              </motion.li>
+              <motion.li
+                variants={socialVariant}
+                // initial="hidden"
+                // animate={showSocial ? "visible" : "hidden"}
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "color 0.6s ease-out;",
+                }}
+                className="list-group-item border-0 bg-transparent "
+              >
                 linkedin
-              </li>
-              <li className="list-group-item border-0 bg-transparent text-white">
+              </motion.li>
+              <motion.li
+                variants={socialVariant}
+                // initial="hidden"
+                // animate={showSocial ? "visible" : "hidden"}
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "color 0.6s ease-out;",
+                }}
+                className="list-group-item border-0 bg-transparent "
+              >
                 youtube
-              </li>
-              <li className="list-group-item border-0 bg-transparent text-white">
+              </motion.li>
+              <motion.li
+                variants={socialVariant}
+                // initial="hidden"
+                // animate={showSocial ? "visible" : "hidden"}
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "color 0.6s ease-out;",
+                }}
+                className="list-group-item border-0 bg-transparent "
+              >
                 pinterest
-              </li>
-              <li className="list-group-item border-0 bg-transparent text-white">
+              </motion.li>
+              <motion.li
+                variants={socialVariant}
+                // initial="hidden"
+                // animate={showSocial ? "visible" : "hidden"}
+                style={{
+                  color: "white",
+                  cursor: "pointer",
+                  transition: "color 0.6s ease-out;",
+                }}
+                className="list-group-item border-0 bg-transparent "
+              >
                 behance
-              </li>
-            </ul>
+              </motion.li>
+            </motion.ul>
           </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 };
